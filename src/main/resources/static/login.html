@@ -1,0 +1,118 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="author" content="guanghe" />
+    <meta title="login" />
+    <link rel="stylesheet" href="/assets/bootstrap-4.3.1/css/bootstrap.min.css"  />
+    <style>
+        body {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #eee;
+        }
+
+        .form-signin {
+            max-width: 330px;
+            padding: 15px;
+            margin: 0 auto;
+        }
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+        .form-signin input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+    </style>
+    <script src="/assets/jquery-3.3.1.min.js"></script>
+    <script src="/assets/bootstrap-4.3.1/js/bootstrap.min.js"></script>
+    <script >
+        var login = () =>  {
+            let username = $("#username").val();
+            let password = $("#password").val();
+            let rememberMe = $("#rememberMe").prop("checked");
+            $.ajax({
+                url : "/shiro/login",
+                type : "POST",
+                async : true,
+                dataType : "json",
+                data : {
+                    username : username,
+                    password : password,
+                    rememberMe : rememberMe
+                },
+                success : (result, status, xhr) => {
+                    $("#ajaxModal .modal-title").html("请求成功");
+                    $("#ajaxModal .modal-body").html(result.msg);
+                    $("#ajaxModal").modal("show");
+                },
+                error : (shr, status, error) => {
+                    $("#ajaxModal .modal-title").html("请求失败");
+                    $("#ajaxModal .modal-body").html(error);
+                    $("#ajaxModal").modal("show");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <!-- 模态框 -->
+    <div class="modal fade" id="ajaxModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- 模态框头部 -->
+                <div class="modal-header">
+                    <h4 class="modal-title" ></h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- 模态框主体 -->
+                <div class="modal-body"></div>
+                <!-- 模态框底部 -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='index'">前往主页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="username" class="sr-only">Username</label>
+            <input type="text" id="username" class="form-control" placeholder="username" required="" autofocus="">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" id="password" class="form-control" placeholder="password" required="">
+            <div class="checkbox">
+                <label>
+                    <input id="rememberMe" type="checkbox"> Remember me
+                </label>
+            </div>
+            <span class="btn btn-lg btn-primary btn-block" onclick="login()">Sign in</span>
+        </form>
+    </div>
+</body>
+</html>
