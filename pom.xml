@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.guangsoft</groupId>
-    <artifactId>baseSpringBoot</artifactId>
+    <artifactId>basic_erp</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
-    <name>baseSpringBoot</name>
-    <description>baseSpringBoot</description>
+    <name>basic_erp</name>
+    <description>basic_erp</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
