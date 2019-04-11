@@ -2,6 +2,7 @@ package io.guangsoft.erp.config;
 
 import io.guangsoft.erp.realm.Realm;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.codec.Base64;
 import org.apache.shiro.mgt.RememberMeManager;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -39,6 +40,8 @@ public class Config {
         //设置RememberMe的cookie有效期为7天
         simpleCookie.setMaxAge(604800);
         rememberMeManager.setCookie(simpleCookie);
+        //手动设置对称加密秘钥，防止重启系统后系统生成新的随机秘钥，防止导致客户端cookie无效
+        rememberMeManager.setCipherKey(Base64.decode("6ZmI6I2j3Y+R1aSn5BOlAA=="));
         return rememberMeManager;
     }
 
