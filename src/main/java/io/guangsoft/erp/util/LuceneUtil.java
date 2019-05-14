@@ -66,7 +66,7 @@ public class LuceneUtil {
 
     //获取索引Writer
     public static IndexWriter getIndexWriter() {
-        if(indexWriter == null) {
+        if(indexWriter == null || !indexWriter.isOpen()) {
             try {
                 IndexWriterConfig indexWriterConfig = new IndexWriterConfig(getAnalyzer());
                 indexWriter = new IndexWriter(directory, indexWriterConfig);
@@ -98,9 +98,7 @@ public class LuceneUtil {
 
     //获取索引Searcher
     public static IndexSearcher getIndexSearcher() {
-        if(indexSearcher == null) {
-            indexSearcher = new IndexSearcher(getIndexReader());
-        }
+        indexSearcher = new IndexSearcher(getIndexReader());
         return indexSearcher;
     }
 
